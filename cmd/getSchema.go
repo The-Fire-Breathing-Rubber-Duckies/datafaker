@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg/db"
+	"github.com/the-fire-breathing-duckies/datafaker/pkg"
 )
 
 func init() {
@@ -21,12 +21,12 @@ var getSchemaCmd = &cobra.Command{
 func getSchema(cmd *cobra.Command, args []string) {
 	fmt.Print("Hello")
 
-	dbParams := db.ConnectParams{
-		"localhost",
-		5321,
-		"admin",
-		"admin",
-		"test",
+	dbParams := pkg.ConnectParams{
+		Host:     "localhost",
+		Port:     5321,
+		User:     "admin",
+		Password: "admin",
+		Dbname:   "test",
 	}
-	db.connect(dbParams)
+	pkg.Connect(dbParams)
 }
