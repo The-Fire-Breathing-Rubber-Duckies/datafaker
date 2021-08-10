@@ -5,13 +5,62 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-var rootCmd = &cobra.Command{Use: "datafaker"}
+var (
+	// Used for flags.
+	cfgFile     string
+	cfgFileName = ".datafaker"
+	cfgFileType = "yaml"
+
+	rootCmd = &cobra.Command{
+		Use: "datafaker",
+	}
+)
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+	}
+}
+
+func init() {
+	cobra.OnInitialize(initConfig)
+
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.datafaker.yaml)")
+	rootCmd.PersistentFlags().String("host", "localhost", "host name for database connection")
+	rootCmd.PersistentFlags().String("port", "5432", "port for database connection")
+	rootCmd.PersistentFlags().String("user", "", "user for database connection")
+	rootCmd.PersistentFlags().String("password", "", "password for database connection")
+	rootCmd.PersistentFlags().String("dbname", "", "dbname for database connection")
+	rootCmd.PersistentFlags().String("sslmode", "disable", "sslmode for database connection")
+	viper.BindPFlag("hostname", rootCmd.PersistentFlags().Lookup("host"))
+	viper.BindPFlag("port", rootCmd.PersistentFlags().Lookup("port"))
+	viper.BindPFlag("username", rootCmd.PersistentFlags().Lookup("user"))
+	viper.BindPFlag("password", rootCmd.PersistentFlags().Lookup("password"))
+	viper.BindPFlag("dbname", rootCmd.PersistentFlags().Lookup("dbname"))
+	viper.BindPFlag("sslmode", rootCmd.PersistentFlags().Lookup("sslmode"))
+}
+
+func initConfig() {
+	if cfgFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Find home directory.
+		home, err := os.UserHomeDir()
+		cobra.CheckErr(err)
+
+		viper.AddConfigPath(home)
+		viper.SetConfigType(cfgFileType)
+		viper.SetConfigName(cfgFileName)
+	}
+
+	viper.AutomaticEnv()
+
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }
