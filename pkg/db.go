@@ -5,19 +5,28 @@ import (
 	"fmt"
 )
 
-type ConnectParams struct {
-	host     string
-	port     int
-	user     string
-	password string
-	dbname   string
-	sslmode  string `default:"disable"`
+type Result struct {
+	Field   string
+	Type    string
+	Null    string
+	Key     string
+	Default string
+	Extra   string
 }
 
-func connect(p ConnectParams) {
+type ConnectParams struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	Dbname   string
+	Sslmode  string `default:"disable"`
+}
+
+func Connect(p ConnectParams) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=%s",
-		p.host, p.port, p.user, p.password, p.dbname, p.sslmode)
+		p.Host, p.Port, p.User, p.Password, p.Dbname, p.Sslmode)
 
 	DB, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
