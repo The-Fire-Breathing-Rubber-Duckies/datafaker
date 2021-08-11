@@ -5,6 +5,10 @@ import (
 	"log"
 )
 
+type Schema struct {
+	Tables map[string]TableSchema
+}
+
 type TableSchema struct {
 	Columns []Column
 	Indexes []Index
@@ -13,7 +17,7 @@ type TableSchema struct {
 type Column struct {
 	ColumnName    string
 	OrdinalPos    int
-	ColumnDefault string
+	ColumnDefault sql.NullString
 	IsNullable    string
 	DataType      string
 }
