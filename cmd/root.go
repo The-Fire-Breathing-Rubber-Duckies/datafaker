@@ -10,9 +10,11 @@ import (
 
 var (
 	// Used for flags.
-	cfgFile     string
-	cfgFileName = ".datafaker"
-	cfgFileType = "yaml"
+	cfgFile      string
+	cfgFileName  = ".datafaker"
+	cfgFileType  = "yaml"
+	verboseLevel = 1
+	silent       = false
 
 	rootCmd = &cobra.Command{
 		Use: "datafaker",
@@ -30,6 +32,8 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.datafaker.yaml)")
+	rootCmd.PersistentFlags().IntVarP(&verboseLevel, "verbose-level", "v", verboseLevel, "verbose level")
+	rootCmd.PersistentFlags().BoolVarP(&silent, "silent", "s", false, "silent")
 	rootCmd.PersistentFlags().String("host", "localhost", "host name for database connection")
 	rootCmd.PersistentFlags().String("port", "5432", "port for database connection")
 	rootCmd.PersistentFlags().String("user", "", "user for database connection")
@@ -60,7 +64,14 @@ func initConfig() {
 
 	viper.AutomaticEnv()
 
+	// Check silent
+	if silent {
+		verboseLevel = 0
+	}
+
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+		if verboseLevel > 0 {
+			fmt.Println("Using config file:", viper.ConfigFileUsed())
+		}
 	}
 }
