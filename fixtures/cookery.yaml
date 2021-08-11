@@ -1,0 +1,90 @@
+name: generate some blog posts
+quantities:
+  - recipe: authors
+    quantity: 10
+    entities:
+      email:
+        domains:
+          - virtru.com
+          - urtriv.com
+          - test.com
+  - recipe: blog posts
+    quantity: 100
+    relation:
+      - table: authors
+        percentage: 20/10 # first author will be 20 percent second author will be 10 percent 
+recipe:
+  - name: authors by virtru.com
+    quantity: 10
+    table: authors
+    fields:
+      - field: id # every entry to be unique
+        type: int
+        autogen: true
+      - field: name # every entry to be unique
+        type: string
+        entity: name
+      - field: email # every entry to contain a proportion of emails by domain
+        type: string
+        entity:
+          type: email
+          domain: virtru.com
+  - name: authors by test.com
+    quantity: 10
+    table: authors
+    fields:
+      - field: id # every entry to be unique
+        type: int
+        autogen: true
+      - field: name # every entry to be unique
+        type: string
+        entity: name
+      - field: email # every entry to contain a proportion of emails by domain
+        type: string
+        entity:
+          type: email
+          domain: test.com
+  - name: blog posts
+    table: posts
+    fields:
+      - field: id
+        type: int
+      - field: title
+      - field: body
+      - field: author
+        type: fk:authors
+      - field: created_on
+        type: datetime
+      - field: published
+
+
+
+entities:
+  tdf_owner:
+    key:
+      field: tdf_id
+    fields:
+      - field: tdf_id
+      - field: owner_id
+
+tables:
+  tdf_transactions:
+    - field: id
+      index: primay
+    - entity: tdf_owner
+      percentage: 30%
+
+
+id, tdf_id, owner_id
+x, 1, 1
+x, 1, 1
+x, 1, 1
+x, 2, 1
+x, 3, 2
+x, 4, 3
+....
+
+owners: 
+  1: 
+    tdf_id: 30%
+tdfs: [ 1, 2, 3, 4]
