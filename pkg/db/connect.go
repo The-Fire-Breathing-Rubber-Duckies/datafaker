@@ -9,7 +9,7 @@ import (
 
 type ConnectParams struct {
 	Host     string `localhost`
-	Port     int    `default:"5432"`
+	Port     string `default:"5432"`
 	User     string
 	Password string
 	Dbname   string
@@ -17,7 +17,7 @@ type ConnectParams struct {
 }
 
 func Connect(p ConnectParams) (db *sql.DB) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=%s",
 		p.Host, p.Port, p.User, p.Password, p.Dbname, p.Sslmode)
 

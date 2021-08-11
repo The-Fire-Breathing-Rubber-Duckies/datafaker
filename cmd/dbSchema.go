@@ -24,7 +24,7 @@ var dbSchemaCmd = &cobra.Command{
 		// Get connection config
 		dbConnectParams := db.ConnectParams{
 			Host:     viper.GetViper().GetString("hostname"),
-			Port:     viper.GetViper().GetInt("port"),
+			Port:     viper.GetViper().GetString("port"),
 			User:     viper.GetViper().GetString("username"),
 			Password: viper.GetViper().GetString("password"),
 			Dbname:   viper.GetViper().GetString("dbname"),
