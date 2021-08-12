@@ -12,5 +12,6 @@ func NewRouter() *echo.Echo {
 		AllowOrigins: []string{"*"},
 	}))
 	e.GET("/describe", GetTableData)
+	e.POST("/write", WriteData)
 	return e
 }

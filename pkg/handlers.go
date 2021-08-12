@@ -25,3 +25,20 @@ func GetTableData(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, schema)
 }
+
+func WriteData(c echo.Context) error {
+	table := c.QueryParam("table")
+	params := db.ConnectParams{
+		Host:     c.QueryParam("host"),
+		Port:     c.QueryParam("port"),
+		User:     c.QueryParam("user"),
+		Password: c.QueryParam("password"),
+		Dbname:   c.QueryParam("dbname"),
+		Sslmode:  c.QueryParam("sslmode"),
+	}
+	database := db.Connect(params)
+	tableSchema := db.DescribeTable(database, table)
+	db.WriteToDb(database, tableSchema, table)
+
+	return c.String(http.StatusOK, "OK")
+}
