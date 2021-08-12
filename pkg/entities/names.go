@@ -1,31 +1,24 @@
 package entities
 
 import (
-	"math/rand"
-	"time"
+	"github.com/brianvoe/gofakeit/v6"
 )
 
-func GetNames(quantity int) []string {
-	var randInts []int
-	var names []string
-
-	max := len(namesData)
-
+func GetNames(quantity int) (names []string) {
 	for len(names) < quantity {
-		rand.Seed(time.Now().UnixNano())
-		n := rand.Intn(max - 1)
+		name := gofakeit.Name()
 
 		// Check if it already has the number
 		exists := false
-		for _, a := range randInts {
-			if a == n {
+		for _, a := range names {
+			if a == name {
 				exists = true
 				break
 			}
 		}
 
 		if !exists {
-			names = append(names, namesData[n])
+			names = append(names, name)
 		}
 	}
 
