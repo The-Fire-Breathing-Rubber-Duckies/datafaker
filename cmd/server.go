@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/datafakery/datafaker/pkg"
 	"github.com/spf13/cobra"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg"
 )
 
 var port int

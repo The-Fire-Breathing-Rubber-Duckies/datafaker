@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/datafakery/datafaker/pkg/db"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg/db"
 )
 
 func init() {
