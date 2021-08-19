@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"github.com/brianvoe/gofakeit/v6"
-	dbI "github.com/the-fire-breathing-duckies/datafaker/pkg/db"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg/entities"
+	dbI "github.com/datafakery/datafaker/pkg/db"
+	"github.com/datafakery/datafaker/pkg/entities"
 	"gopkg.in/yaml.v2"
 )
 
