@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/datafakery/datafaker/pkg/entities"
 	"github.com/spf13/cobra"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg/entities"
 )
 
 var (

@@ -3,8 +3,8 @@ package pkg
 import (
 	"net/http"
 
+	"github.com/datafakery/datafaker/pkg/db"
 	"github.com/labstack/echo/v4"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg/db"
 )
 
 func GetTableData(c echo.Context) error {

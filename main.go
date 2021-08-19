@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/the-fire-breathing-duckies/datafaker/cmd"
+	"github.com/datafakery/datafaker/cmd"
 )
 
 func main() {

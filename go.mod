@@ -1,4 +1,4 @@
-module github.com/the-fire-breathing-duckies/datafaker
+module github.com/datafakery/datafaker
 
 go 1.16
 

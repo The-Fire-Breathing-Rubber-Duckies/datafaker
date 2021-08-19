@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/datafakery/datafaker/pkg/entities"
 	"github.com/spf13/cobra"
-	"github.com/the-fire-breathing-duckies/datafaker/pkg/entities"
 )
 
 func init() {
